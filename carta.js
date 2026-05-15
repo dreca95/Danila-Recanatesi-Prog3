@@ -3,7 +3,7 @@ export class Carta {
     code;
     value;
     suit;
- imagen;
+    imagen;
     /*2b*/
     constructor(code, value, suit, imagen) {
         this.code = code;
@@ -23,7 +23,7 @@ export class Carta {
     }
 
     /*2ciii*/
-    createHtmlElement() {
+    createHtmlElement(guardar = true) {
         const div = document.createElement("div");
         div.classList.add("carta");
 
@@ -37,10 +37,31 @@ export class Carta {
         code.textContent = this.code;
 
 
+        const link = document.createElement("a");
+        link.href = this.imagen;
+        link.target = "_blank";
+        link.appendChild(imagen);
+
+
         div.appendChild(value);
-        div.appendChild(imagen);
+        div.appendChild(link);
         div.appendChild(code);
 
+
+        if (guardar) {
+            const btnGuardar = document.createElement("button");
+            btnGuardar.textContent = "Guardar";
+            btnGuardar.classList.add("guardar");
+            div.appendChild(btnGuardar);
+
+            btnGuardar.addEventListener("click", () => {
+                Carta.guardarCarta(this);
+                btnGuardar.disabled = true;
+                btnGuardar.style.backgroundColor = "gray";
+            });
+        }
         return div;
+
     }
+
 }
