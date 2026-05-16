@@ -40,9 +40,13 @@ export class Carta {
         const link = document.createElement("a");
         link.href = this.imagen;
         link.target = "_blank";
+
+        
         link.appendChild(imagen);
 
 
+
+        
         div.appendChild(value);
         div.appendChild(link);
         div.appendChild(code);
@@ -56,12 +60,27 @@ export class Carta {
 
             btnGuardar.addEventListener("click", () => {
                 Carta.guardarCarta(this);
-                btnGuardar.disabled = true;
-                btnGuardar.style.backgroundColor = "gray";
+
             });
         }
         return div;
 
+    }
+
+
+    static guardarCarta(carta) {
+        let cartas = JSON.parse(localStorage.getItem("cartas") || "[]");
+        let esta = false;
+
+        cartas.forEach(elemento => {
+            if (elemento.code === carta.code) {
+                esta = true;
+            }
+        });
+        if (!esta) {
+            cartas.push(carta);
+        }
+        localStorage.setItem("cartas", JSON.stringify(cartas));
     }
 
 }
