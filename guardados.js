@@ -4,9 +4,9 @@ const seccion = document.getElementById("cartas");
 
 const cartas = JSON.parse(localStorage.getItem("cartas") || "[]");
 
+const botonOrdenPalo = document.getElementById("ordenPalo");
 
 mostrarCartasGuardadas(cartas);
-
 
 
 
@@ -27,3 +27,11 @@ function mostrarCartasGuardadas(cartasGuardadas) {
         alert("Error al cargar");
     }
 }
+
+
+botonOrdenPalo.addEventListener("click", () => {
+    const cartasOrdenadas = [...cartas];
+    cartasOrdenadas.sort((a, b) => { return a.suit.localeCompare(b.suit); });
+
+    mostrarCartasGuardadas(cartasOrdenadas);
+});
